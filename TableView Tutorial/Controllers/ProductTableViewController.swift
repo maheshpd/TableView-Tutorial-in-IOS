@@ -18,6 +18,8 @@ class ProductTableViewController: UITableViewController {
         title = "Apple Store"
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableView.automaticDimension
+        
+        navigationItem.rightBarButtonItem = editButtonItem
     }
     
     //MARK: - UITableViewDataSource
@@ -43,9 +45,25 @@ class ProductTableViewController: UITableViewController {
         return cell!
     }
     
+    //Multiple Selection
+    
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let productLine = productsLine[section]
         return productLine.name
+    }
+    
+    //Delete Row
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // delete the product from the product Line's product array
+            
+            let productLine = productsLine[indexPath.section]
+            productLine.product.remove(at: indexPath.row)
+            
+            //update the table view with new data
+//            tableView.reloadData()
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
     }
     
 }
