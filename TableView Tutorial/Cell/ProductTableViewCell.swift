@@ -16,15 +16,16 @@ class ProductTableViewCell: UITableViewCell {
     
     @IBOutlet weak var productDescriptionLbl: UILabel!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    var product: Product? {
+        didSet {
+            self.updateUI()
+        }
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    func updateUI() {
+        productImageView.image = product?.image
+        productTitleLbl.text = product?.title
+        productDescriptionLbl.text = product?.description
     }
-
+    
 }
