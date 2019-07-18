@@ -66,4 +66,19 @@ class ProductTableViewController: UITableViewController {
         }
     }
     
+    //Moving Cells
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let productToMove = productsLine[sourceIndexPath.section].product[sourceIndexPath.row]
+        
+        //move productToMove to destination products
+        productsLine[destinationIndexPath.section].product.insert(productToMove, at: destinationIndexPath.row)
+        
+        //delete the productToMove from the source products
+        productsLine[sourceIndexPath.section].product.remove(at: sourceIndexPath.row)
+    }
+    
 }
