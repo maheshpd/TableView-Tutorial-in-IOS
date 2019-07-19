@@ -14,7 +14,7 @@ class ProductDetailTableViewController: UITableViewController {
     @IBOutlet weak var productTitleTextField: UITextField!
     @IBOutlet weak var productDescriptionTextView: UITextView!
     
-    var product: Product? = ProductLine.getProductLines()[0].product[0]
+    var product: Product?
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -18,17 +18,11 @@ class ProductTableViewController: UITableViewController {
         title = "Apple Store"
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableView.automaticDimension
-        
         navigationItem.rightBarButtonItem = editButtonItem
     }
     
     //MARK: - UITableViewDataSource
-    
-    
-    
-    
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
+   override func numberOfSections(in tableView: UITableView) -> Int {
         return productsLine.count
     }
     
@@ -81,4 +75,25 @@ class ProductTableViewController: UITableViewController {
         productsLine[sourceIndexPath.section].product.remove(at: sourceIndexPath.row)
     }
     
+    var selectedProduct: Product?
+    
+    
+    //MARK:- UITableViewDelgate
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let productLine = productsLine[indexPath.section]
+        let product = productLine.product[indexPath.row]
+        
+        selectedProduct = product
+        
+        performSegue(withIdentifier: "ShowProductDetail", sender: nil)
+    }
+    
+   // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowProductDetail" {
+            let productDetailVC = segue.destination as! ProductDetailTableViewController
+            productDetailVC.product = selectedProduct
+        }
+    }
 }
